@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>One Question Daily</title>
+<style>
+:root{--black:#0a0908;--bord:#49111c;--smoke:#f2f4f3;--taupe:#a9927d;--stone:#5e503f;
+--bg:var(--black);--fg:var(--smoke);--mut:var(--taupe);--line:#2b2420;--card:rgba(242,244,243,.03);--glow:rgba(73,17,28,.75);--pill:var(--stone);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:var(--smoke);--fg:var(--black);--mut:var(--stone);--line:#d8d0c7;--card:rgba(10,9,8,.03);--glow:rgba(169,146,125,.45)}}
+:root[data-theme="light"]{--bg:var(--smoke);--fg:var(--black);--mut:var(--stone);--line:#d8d0c7;--card:rgba(10,9,8,.03);--glow:rgba(169,146,125,.45)}
+*{box-sizing:border-box}
+html,body{min-height:100%}
+body{margin:0;background:radial-gradient(900px 420px at 15% -5%,var(--glow),transparent 70%),var(--bg);background-color:var(--bg);color:var(--fg);font:15px/1.5 Georgia,'Times New Roman',serif}
+main{max-width:720px;margin:0 auto;padding:64px 20px 90px}
+.eye{font:600 11px/1 ui-sans-serif,system-ui,sans-serif;letter-spacing:.28em;color:var(--mut);text-transform:uppercase;margin-bottom:18px}
+h1{font-size:clamp(38px,8vw,60px);line-height:1.04;font-weight:400;margin:0 0 14px;letter-spacing:-.02em}
+h1 em{color:var(--mut)}
+.sub{color:var(--mut);margin:0 0 34px;max-width:420px}
+.stats{display:flex;align-items:flex-end;gap:18px;margin-bottom:12px}
+.big{font-size:44px;line-height:1;letter-spacing:-.02em}.big small{font-size:18px;color:var(--mut)}
+.pct{margin-left:auto;color:var(--mut);font:13px ui-sans-serif,system-ui,sans-serif}
+.bar{height:6px;border-radius:9px;background:var(--line);overflow:hidden;margin-bottom:30px}
+.bar i{display:block;height:100%;width:0;border-radius:9px;background:linear-gradient(90deg,var(--bord),var(--taupe));transition:width .5s}
+.next{display:flex;align-items:center;gap:16px;padding:18px 20px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(120deg,var(--bord),transparent 120%),var(--card);margin-bottom:30px;text-decoration:none;color:inherit;transition:transform .2s}
+.next:hover{transform:translateY(-2px)}
+.next .l{font:600 10px ui-sans-serif,system-ui,sans-serif;letter-spacing:.24em;text-transform:uppercase;color:var(--taupe)}
+.next .t{font-size:19px;margin-top:4px;color:var(--smoke)}.next .s{font-size:13px;color:var(--taupe)}
+.next .go{margin-left:auto;font-size:22px;color:var(--smoke)}
+input[type=search]{width:100%;padding:13px 18px;background:var(--card);border:1px solid var(--line);border-radius:99px;color:var(--fg);font:inherit;outline:none;margin-bottom:22px}
+input[type=search]:focus{border-color:var(--mut)}
+details{border:1px solid var(--line);border-radius:16px;background:var(--card);margin-bottom:10px;transition:border-color .2s}
+details[open]{border-color:var(--stone)}
+summary{cursor:pointer;padding:16px 18px;list-style:none;display:flex;align-items:center;gap:14px}
+summary::-webkit-details-marker{display:none}
+.n{font:12px ui-sans-serif,system-ui,sans-serif;color:var(--mut);opacity:.7;width:20px}
+.nm{flex:1;font-size:17px}
+.mini{width:54px;height:3px;border-radius:9px;background:var(--line);overflow:hidden}.mini i{display:block;height:100%;background:var(--mut)}
+.ct{font:12px ui-sans-serif,system-ui,sans-serif;color:var(--mut);width:38px;text-align:right}
+summary:after{content:'+';color:var(--mut);font-size:18px;width:14px;text-align:center}
+details[open] summary:after{content:'–'}
+.sec{padding:0 18px 12px;border-top:1px solid var(--line)}
+.row{display:flex;gap:12px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line);cursor:pointer}
+.row:last-child{border:0}
+.row input{appearance:none;-webkit-appearance:none;width:18px;height:18px;border:1.5px solid var(--mut);border-radius:50%;flex:none;margin:0;cursor:pointer;position:relative;transition:.2s}
+.row input:checked{background:var(--mut)}
+.row input:checked:after{content:'';position:absolute;left:5px;top:2px;width:4px;height:8px;border:solid var(--bg);border-width:0 2px 2px 0;transform:rotate(45deg)}
+.row a,.row em{flex:1;color:var(--fg);text-decoration:none;font-style:normal}
+.row a:hover{color:var(--mut)}
+.row.done a,.row.done em{color:var(--mut);opacity:.6;text-decoration:line-through}
+.tag{font:600 10px ui-sans-serif,system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:99px;border:1px solid var(--mut);color:var(--mut)}
+.tag.m{background:var(--stone);border-color:var(--stone);color:var(--smoke)}
+.tag.h{background:var(--bord);border-color:var(--bord);color:var(--smoke)}
+</style></head><body><main>
+<div class="eye">Insta Channel · One question daily</div>
+<h1>One question,<br><em>every day.</em></h1>
+<p class="sub">Patterns, not problems. Work through them one at a time.</p>
+<div class="stats"><div class="big" id="s"></div><div class="pct" id="pc"></div></div>
+<div class="bar"><i id="p"></i></div>
+<div id="nx"></div>
+<input type="search" id="q" placeholder="Search problems or patterns…">
+<div id="l"></div>
+</main>
+<script>
+const D=`# Two Pointers
+Pair with Target Sum (easy)|two-sum-ii-input-array-is-sorted
+Rearrange 0 and 1|g:segregate-0s-and-1s5106/1
+Remove Duplicates (easy)|remove-duplicates-from-sorted-array
+Squaring a Sorted Array (easy)|squares-of-a-sorted-array
+Triplet Sum to Zero (medium)|3sum
+Triplet Sum Close to Target (medium)|3sum-closest
+Triplets with Smaller Sum (medium)|g:count-triplets-with-sum-smaller-than-x5549/1
+Subarrays with Product Less than a Target (medium)|subarray-product-less-than-k
+Dutch National Flag Problem (medium)|sort-colors
+Quadruple Sum to Target (medium)|4sum
+Comparing Strings containing Backspaces (medium)|backspace-string-compare
+Minimum Window Sort (medium)|shortest-unsorted-continuous-subarray
+# Fast & Slow Pointers
+LinkedList Cycle (easy)|linked-list-cycle
+Start of LinkedList Cycle (medium)|linked-list-cycle-ii
+Happy Number (medium)|happy-number
+Find Duplicate Number|find-the-duplicate-number
+Middle of the LinkedList (easy)|middle-of-the-linked-list
+Palindrome LinkedList (medium)|palindrome-linked-list
+Rearrange a LinkedList (medium)|reorder-list
+Cycle in a Circular Array (hard)|circular-array-loop
+# Sliding Window
+Maximum Sum Subarray of Size K (easy)|g:max-sum-subarray-of-size-k5313/1
+Smallest Subarray with a given sum (easy)|minimum-size-subarray-sum
+Longest Substring with K Distinct Characters (medium)|g:longest-k-unique-characters-substring0853/1
+Fruits into Baskets (medium)|fruit-into-baskets
+No-repeat Substring (hard)|longest-substring-without-repeating-characters
+Longest Substring with Same Letters after Replacement (hard)|longest-repeating-character-replacement
+Longest Subarray with Ones after Replacement (hard)|max-consecutive-ones-iii
+Minimum Size Substring (hard)|minimum-window-substring
+Permutation in a String (hard)|permutation-in-string
+String Anagrams (hard)|find-all-anagrams-in-a-string
+Words Concatenation (hard)|substring-with-concatenation-of-all-words
+# Kadane
+Maximum subarray sum|maximum-subarray
+Minimum subarray sum|g:smallest-sum-contiguous-subarray/1
+Maximum product subarray|maximum-product-subarray
+Maximum subarray sum with one deletion|maximum-subarray-sum-with-one-deletion
+Maximum absolute sum of any subarray|maximum-absolute-sum-of-any-subarray
+Maximum sum circular subarray|maximum-sum-circular-subarray
+# Prefix Sum
+Subarray Sum Equals K (easy)|subarray-sum-equals-k
+Find Pivot Index (easy)|find-pivot-index
+Subarray Sums Divisible By K (medium)|subarray-sums-divisible-by-k
+Contiguous Array (medium)|contiguous-array
+Shortest Subarray With Sum at Least K (hard)|shortest-subarray-with-sum-at-least-k
+Count Range Sum (hard)|count-of-range-sum
+# Merge Intervals
+Merge Intervals (medium)|merge-intervals
+Insert Interval (medium)|insert-interval
+Intervals Intersection (medium)|interval-list-intersections
+Overlapping Intervals|https://www.geeksforgeeks.org/check-if-any-two-intervals-overlap-among-a-given-set-of-intervals/
+Minimum Meeting Rooms (hard)|g:attend-all-meetings-ii/1
+Maximum CPU Load (hard)|https://www.geeksforgeeks.org/maximum-cpu-load-from-the-given-list-of-jobs/
+Employee Free Time (hard)|https://www.codertrain.co/employee-free-time
+# In-place Reversal of a LinkedList
+Reverse a LinkedList (easy)|reverse-linked-list
+Reverse a Sub-list (medium)|reverse-linked-list-ii
+Reverse List in Pairs (medium)|swap-nodes-in-pairs
+Reverse every K-element Sub-list (hard)|reverse-nodes-in-k-group
+Reverse nodes in Even Length Groups (hard)|reverse-nodes-in-even-length-groups
+Rotate a LinkedList (medium)|rotate-list
+# Stack
+Remove adjacent duplicates|remove-all-adjacent-duplicates-in-string
+Balanced Parentheses|valid-parentheses
+Reverse a String|
+Next Greater Element (easy)|next-greater-element-ii
+Daily Temperatures (easy)|daily-temperatures
+Remove Nodes From Linked List (easy)|remove-nodes-from-linked-list
+Remove All Adjacent Duplicates II (medium)|remove-all-adjacent-duplicates-in-string-ii
+Simplify Path|simplify-path
+Remove K Digits (hard)|remove-k-digits
+# Hash Maps
+First Non-repeating Character (easy)|first-unique-character-in-a-string
+Maximum Number of Balloons (easy)|maximum-number-of-balloons
+Longest Palindrome (easy)|longest-palindrome
+Ransom Note (easy)|ransom-note
+# Binary Search
+Binary search basic|binary-search
+Upper Bound / Ceiling|g:ceil-in-a-sorted-array/1
+First and Last position|find-first-and-last-position-of-element-in-sorted-array
+Count number of occurrences|g:number-of-occurrence2259/1
+Search in infinite sorted array|https://www.geeksforgeeks.org/find-position-element-sorted-array-infinite-numbers/
+Peak index in Mountain|peak-index-in-a-mountain-array
+Find peak element|find-peak-element
+Find minimum in rotated sorted array|find-minimum-in-rotated-sorted-array
+Number of rotations in sorted array|g:rotation4723/1
+Search in rotated sorted array|search-in-rotated-sorted-array
+Koko eating bananas|koko-eating-bananas
+Min days to make m bouquets|minimum-number-of-days-to-make-m-bouquets
+Aggressive cows|g:aggressive-cows/1
+H-Index II|h-index-ii
+Max candies to k children|maximum-candies-allocated-to-k-children
+Capacity to ship packages in d days|capacity-to-ship-packages-within-d-days
+Book Allocation Problem|g:allocate-minimum-number-of-pages0937/1
+Split array largest sum|split-array-largest-sum
+Search a 2D matrix|search-a-2d-matrix
+Search a 2D matrix II (hard)|search-a-2d-matrix-ii
+Kth smallest in sorted matrix|kth-smallest-element-in-a-sorted-matrix
+Kth smallest in multiplication table|kth-smallest-number-in-multiplication-table
+Median of two sorted arrays|median-of-two-sorted-arrays
+# Heap
+Kth smallest|g:kth-smallest-element5635/1
+Kth largest|kth-largest-element-in-an-array
+Top K frequent elements|top-k-frequent-elements
+Top K frequent words|top-k-frequent-words
+K closest points to origin|k-closest-points-to-origin
+Find K closest elements|find-k-closest-elements
+Kth weakest rows in matrix|the-k-weakest-rows-in-a-matrix
+Merge K sorted arrays|g:merge-k-sorted-arrays/1
+Last stone weight|last-stone-weight
+CPU task scheduler|task-scheduler
+Reorganize string|reorganize-string
+Min number of refueling stops|minimum-number-of-refueling-stops
+IPO|ipo
+Course Schedule III|course-schedule-iii
+Find median in data stream|find-median-from-data-stream
+Sliding window median (hard)|sliding-window-median
+# Recursion & Backtracking
+Fibonacci|fibonacci-number
+Check if string is palindrome|g:palindrome-string0817/1
+Check if array is sorted|g:check-if-an-array-is-sorted0701/1
+Sum of digits of a number|g:sum-of-digits1742/1
+Remove occurrences of a character in string|g:remove-all-occurrences-of-a-character-in-a-string/1
+Generate parentheses|generate-parentheses
+Letter combinations of a phone number|letter-combinations-of-a-phone-number
+Permutations|permutations
+Combination sum|combination-sum
+Palindrome partitioning|palindrome-partitioning
+# Trees
+Inorder|binary-tree-inorder-traversal
+Preorder|binary-tree-preorder-traversal
+Postorder|binary-tree-postorder-traversal
+Level order|binary-tree-level-order-traversal
+Zigzag order|binary-tree-zigzag-level-order-traversal
+Level order II|binary-tree-level-order-traversal-ii
+Invert tree|invert-binary-tree
+Symmetric tree|symmetric-tree
+Same tree|same-tree
+Subtree of another tree|subtree-of-another-tree
+Flip equivalent tree|flip-equivalent-binary-trees
+LCA of binary tree|lowest-common-ancestor-of-a-binary-tree
+Search in a BST|search-in-a-binary-search-tree
+LCA of BST|lowest-common-ancestor-of-a-binary-search-tree
+LCA of deepest leaves|lowest-common-ancestor-of-deepest-leaves
+Two Sum IV|two-sum-iv-input-is-a-bst
+Kth smallest element in BST|kth-smallest-element-in-a-bst
+Minimum depth|minimum-depth-of-binary-tree
+Maximum depth|maximum-depth-of-binary-tree
+Balanced binary tree|balanced-binary-tree
+Diameter of binary tree|diameter-of-binary-tree
+Check completeness of binary tree|check-completeness-of-a-binary-tree
+Validate BST|validate-binary-search-tree
+Recover BST|recover-binary-search-tree
+Path sum|path-sum
+Path sum II|path-sum-ii
+Sum root to leaf|sum-root-to-leaf-numbers
+Maximum path sum|binary-tree-maximum-path-sum
+Construct tree from preorder and inorder|construct-binary-tree-from-preorder-and-inorder-traversal
+Construct tree from inorder and postorder|construct-binary-tree-from-inorder-and-postorder-traversal
+Sorted array to BST|convert-sorted-array-to-binary-search-tree
+# Graphs
+Adjacency list from edges|g:print-adjacency-list-1587115620/1
+Graph DFS|g:depth-first-traversal-for-a-graph/1
+Graph BFS|g:bfs-traversal-of-graph/1
+Number of islands|number-of-islands
+Number of provinces|number-of-provinces
+Rotting oranges|rotting-oranges
+Cycle detection, undirected|g:detect-cycle-in-an-undirected-graph/1
+Cycle detection, directed|g:detect-cycle-in-a-directed-graph/1
+Topological sort|g:topological-sort/1
+Bipartite graph / coloring|is-graph-bipartite
+Surrounded regions|surrounded-regions
+Shortest path, unweighted|g:shortest-path-in-undirected-graph-having-unit-distance/1
+Dijkstra's algorithm|g:implementing-dijkstra-set-1-adjacency-matrix/1
+Network delay|network-delay-time
+Path with minimum effort|path-with-minimum-effort
+Swim in rising water|swim-in-rising-water
+Bellman-Ford|g:distance-from-the-source-bellman-ford-algorithm/1
+Cheapest flights within K stops|cheapest-flights-within-k-stops
+Prim's MST|g:minimum-spanning-tree/1
+Word ladder|word-ladder
+# Dynamic Programming
+Ep 02: Fibonacci|fibonacci-number
+Ep 03: Climbing stairs|climbing-stairs
+Ep 04: House robber|house-robber
+Ep 05: 0/1 Knapsack|g:0-1-knapsack-problem0945/1
+Ep 06: Tabulation intro|
+Ep 07: 0/1 Knapsack tabulation|g:0-1-knapsack-problem0945/1
+Ep 08: Subset sum|g:subset-sum-problem-1611555638/1
+Ep 09: Target sum|g:target-sum-1626326450/1
+Ep 10: LIS|longest-increasing-subsequence
+Ep 11: LIS tabulation|
+Ep 12: LCS|longest-common-subsequence
+Ep 13: Unique paths|unique-paths
+Ep 14: Buy & sell stocks I|best-time-to-buy-and-sell-stock
+Ep 14: Buy & sell stocks II|best-time-to-buy-and-sell-stock-ii
+Ep 14: Buy & sell stocks III|best-time-to-buy-and-sell-stock-iii
+Ep 14: Buy & sell stocks IV|best-time-to-buy-and-sell-stock-iv
+Ep 15: Min cost to cut a stick|minimum-cost-to-cut-a-stick
+Ep 16: Revision|
+# Greedy
+Lemonade change|lemonade-change
+Jump game|jump-game
+Assign cookies|assign-cookies
+Fractional knapsack|g:fractional-knapsack-1587115620/1`;
+const U=s=>!s?'':s.startsWith('http')?s:s.startsWith('g:')?'https://www.geeksforgeeks.org/problems/'+s.slice(2):'https://leetcode.com/problems/'+s+'/';
+const S=[];D.split('\n').forEach(r=>{if(r[0]=='#')S.push({n:r.slice(2),i:[]});else{const[t,s]=r.split('|');S.at(-1).i.push({id:t+'|'+(s||''),t,u:U(s)})}});
+let done={};try{done=JSON.parse(localStorage.getItem('dsa')||'{}')}catch(e){}
+const save=()=>{try{localStorage.setItem('dsa',JSON.stringify(done))}catch(e){}};
+const L=document.getElementById('l'),all=S.reduce((a,s)=>a+s.i.length,0);
+const open={};
+const dif=t=>{const m=t.match(/\((easy|medium|med|hard)\)/i);return m?{t:t.replace(m[0],'').trim(),d:m[1].toLowerCase()}:{t,d:''}};
+function render(){const q=document.getElementById('q').value.toLowerCase();
+L.innerHTML='';
+S.forEach((s,si)=>{const items=s.i.filter(x=>x.t.toLowerCase().includes(q)||(q&&s.n.toLowerCase().includes(q)));
+const d=s.i.filter(x=>done[x.id]).length;
+if(!items.length)return;
+const el=document.createElement('details');if(q||open[si])el.open=true;
+el.ontoggle=()=>{if(!q)open[si]=el.open};
+el.innerHTML=`<summary><span class="n">${String(si+1).padStart(2,'0')}</span><span class="nm">${s.n}</span><span class="mini"><i style="width:${d/s.i.length*100}%"></i></span><span class="ct">${d}/${s.i.length}</span></summary><div class="sec"></div>`;
+const box=el.lastChild;
+items.forEach(x=>{const f=dif(x.t),r=document.createElement('label');r.className='row'+(done[x.id]?' done':'');
+const tg=f.d?`<span class="tag ${f.d[0]=='h'?'h':f.d[0]=='e'?'':'m'}">${f.d=='med'?'medium':f.d}</span>`:'';
+r.innerHTML=`<input type="checkbox" ${done[x.id]?'checked':''}>${x.u?`<a href="${x.u}" target="_blank" rel="noopener">${f.t}</a>`:`<em>${f.t}</em>`}${tg}`;
+r.firstChild.onchange=e=>{e.target.checked?done[x.id]=1:delete done[x.id];save();render()};
+box.appendChild(r)});
+L.appendChild(el)});
+const n=Object.keys(done).length;
+document.getElementById('p').style.width=(n/all*100)+'%';
+document.getElementById('s').innerHTML=n+'<small> / '+all+' solved</small>';
+document.getElementById('pc').textContent=Math.round(n/all*100)+'% complete';
+let nx=null;for(const s of S){const x=s.i.find(x=>!done[x.id]&&x.u);if(x){nx={s,x};break}}
+document.getElementById('nx').innerHTML=nx?`<a class="next" href="${nx.x.u}" target="_blank" rel="noopener"><div><div class="l">Up next</div><div class="t">${dif(nx.x.t).t}</div><div class="s">${nx.s.n}</div></div><span class="go">→</span></a>`:'';}
+document.getElementById('q').oninput=render;render();
+</script></body></html>
